@@ -1,0 +1,78 @@
+{% extends 'tours/base.html' %}
+
+{% block content %}
+<div class="py-4">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-0">ประวัติการเดินทาง</h2>
+            <p class="text-muted">รายการจองและสถานะการเดินทางทั้งหมดของคุณ</p>
+        </div>
+        <a href="{% url 'index' %}" class="btn btn-primary rounded-pill px-4 shadow-sm">
+            <i class="fas fa-search me-2"></i> ค้นหาเที่ยวรถเพิ่ม
+        </a>
+    </div>
+
+    <div class="card shadow-sm overflow-hidden">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead style="background-color: #f8f9fa; color: #666;">
+                        <tr>
+                            <th class="ps-4 py-3">#เลขที่จอง</th>
+                            <th class="py-3">รายการ/แพ็กเกจ</th>
+                            <th class="py-3 text-center">วันที่เดินทาง</th>
+                            <th class="py-3 text-center">ยอดสุทธิ</th>
+                            <th class="py-3 text-center">สถานะ</th>
+                            <th class="py-3 text-end pe-4">การจัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td class="ps-4 fw-bold">#{{ booking.BookingID }}</td>
+                            <td>
+                                <div class="fw-bold text-dark">{{ booking.PackageName }}</div>
+                                <span class="badge bg-light text-primary border fw-normal">Southern Express</span>
+                            </td>
+                            <td class="text-center">{{ booking.TravelDate|date:"d M Y" }}</td>
+                            <td class="text-center fw-bold text-primary">{{ booking.TotalAmount }} บาท</td>
+                            <td class="text-center">
+                                {% if booking.BookingStatus == 'รอชำระเงิน' or booking.BookingStatus == 'Pending' %}
+                                    <span class="badge bg-warning text-dark rounded-pill px-3 fw-normal">รอชำระเงิน</span>
+                                {% elif booking.BookingStatus == 'จ่ายเงินแล้ว' %}
+                                    <span class="badge bg-success rounded-pill px-3 fw-normal">จ่ายเงินแล้ว</span>
+                                {% elif booking.BookingStatus == 'ยกเลิกแล้ว' %}
+                                    <span class="badge bg-danger rounded-pill px-3 fw-normal">ยกเลิกแล้ว</span>
+                                {% else %}
+                                    <span class="badge bg-secondary rounded-pill px-3 fw-normal">{{ booking.BookingStatus }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end pe-4">
+                                {% if booking.BookingStatus == 'รอชำระเงิน' or booking.BookingStatus == 'Pending' %}
+                                    <a href="{% url 'payment_view' booking.BookingID %}" class="btn btn-primary btn-sm px-3 rounded-pill me-1">ชำระเงิน</a>
+                                    <button onclick="confirmCancel('{{ booking.BookingID }}')" class="btn btn-outline-danger btn-sm px-3 rounded-pill">ยกเลิก</button>
+                                {% elif booking.BookingStatus == 'จ่ายเงินแล้ว' %}
+                                    <a href="{% url 'booking_ticket' booking.BookingID %}" class="btn btn-outline-info btn-sm px-3 rounded-pill">ดูตั๋วเดินทาง</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">ไม่พบข้อมูลการจอง</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmCancel(id) {
+    if (confirm('ยืนยันที่จะยกเลิกการจองหมายเลข #' + id + ' หรือไม่?')) {
+        window.location.href = "/cancel-booking/" + id + "/";
+    }
+}
+</script>
+{% endblock %}

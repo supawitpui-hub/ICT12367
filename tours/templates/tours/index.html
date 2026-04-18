@@ -1,0 +1,37 @@
+{% extends 'tours/base.html' %}
+
+{% block title %}SouthernTour - หน้าแรก{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center mt-5">
+    <div class="container">
+        <h1 class="display-5 fw-bold mb-3">จองตั๋วรถโดยสาร และแพ็คเกจทัวร์ภาคใต้</h1>
+        <p class="lead mb-5">เดินทางสะดวก ปลอดภัย จองง่ายผ่านระบบออนไลน์</p>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 search-box card shadow p-4">
+                <h4 class="mb-4 text-start text-primary">🔍 ค้นหาเที่ยวรถ</h4>
+                
+                <form action="{% url 'search_trips' %}" method="GET" class="row g-3">
+                    <div class="col-md-5 text-start">
+                        <label class="form-label fw-bold">📍 ต้นทาง</label>
+                        <input type="text" class="form-control" value="นครศรีธรรมราช" readonly>
+                    </div>
+                    <div class="col-md-5 text-start">
+                        <label for="destination" class="form-label fw-bold">🚩 ปลายทาง</label>
+                        <select name="destination" id="destination" class="form-select" required>
+                            <option value="" selected disabled>-- เลือกปลายทาง --</option>
+                            {% for dest in destinations %}
+                                <option value="{{ dest.destination_value }}">{{ dest.destination_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-warning w-100 fw-bold">ค้นหา</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

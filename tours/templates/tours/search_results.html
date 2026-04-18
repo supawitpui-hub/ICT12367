@@ -1,0 +1,52 @@
+{% extends 'tours/base.html' %}
+
+{% block title %}ผลการค้นหาเที่ยวรถ{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5" style="min-height: 50vh;">
+    <h2 class="mb-4 text-primary">🚌 ผลการค้นหาเที่ยวรถ</h2>
+    
+    {% if selected_route %}
+        <div class="alert alert-info fs-5 shadow-sm">
+            <strong>เส้นทาง:</strong> นครศรีธรรมราช ➔ <strong>{{ selected_route.destination_name }}</strong>
+        </div>
+        
+        <h4 class="mt-4 mb-3">📅 รอบรถที่เปิดให้บริการ</h4>
+        
+        {% if schedules %}
+            <div class="table-responsive shadow-sm rounded">
+                <table class="table table-hover table-bordered mb-0 text-center align-middle bg-white">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>เวลาออกเดินทาง</th>
+                            <th>รายละเอียดเที่ยวรถ</th>
+                            <th>ราคาผู้ใหญ่</th>
+                            <th>ราคาเด็ก</th>
+                            <th>ทำรายการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for schedule in schedules %}
+                            <tr>
+                                <td class="fw-bold text-success fs-5">{{ schedule.departure_time }} น.</td>
+                                <td class="text-start">{{ schedule.package_name }}</td>
+                                <td class="fw-bold text-danger fs-5">{{ schedule.price_adult|floatformat:0 }} ฿</td>
+                                <td class="text-muted">{{ schedule.price_child|floatformat:0 }} ฿</td>
+                                <td>
+                                    <a href="{% url 'booking_view' schedule.package_id %}" class="btn btn-sm btn-warning fw-bold px-3">จองตั๋ว</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="card shadow-sm mt-4 text-center p-5 bg-light">
+                <h4 class="text-muted">😅 ไม่พบข้อมูลเที่ยวรถสำหรับเส้นทางนี้</h4>
+            </div>
+        {% endif %}
+    {% endif %}
+    
+    <a href="{% url 'index' %}" class="btn btn-secondary mt-4">⬅️ กลับไปหน้าค้นหา</a>
+</div>
+{% endblock %}

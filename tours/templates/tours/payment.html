@@ -1,0 +1,21 @@
+{% extends 'tours/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>ชำระเงินสำหรับการจอง #{{ booking.id }}</h2>
+    <p class="lead">รายการ: <strong>{{ booking.name }}</strong></p>
+    <h3 class="text-primary">ยอดชำระ: {{ booking.amount }} บาท</h3>
+    
+    <div class="my-4">
+        <img src="{% static 'images/payment_qr.png' %}" alt="QR Code" style="max-width: 300px; border: 1px solid #ddd; padding: 10px;">
+    </div>
+
+    <div class="alert alert-info">
+        เมื่อสแกนจ่ายเงินเรียบร้อยแล้ว กรุณากดปุ่มยืนยันด้านล่าง
+    </div>
+
+    <a href="{% url 'confirm_payment' booking.id %}" class="btn btn-success btn-lg">ฉันชำระเงินเรียบร้อยแล้ว</a>
+    <a href="{% url 'my_bookings' %}" class="btn btn-outline-secondary">ย้อนกลับ</a>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'tours/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow" id="ticket-print">
+        <div class="card-header bg-success text-white text-center">
+            <h3>ใบยืนยันการจอง (E-Ticket)</h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-6">
+                    <h5>หมายเลขการจอง: #{{ ticket.id }}</h5>
+                    <p>สถานะ: <strong>{{ ticket.status }}</strong></p>
+                </div>
+                <div class="col-6 text-end">
+                    <p>วันที่ออกตั๋ว: {% now "d/m/Y" %}</p>
+                </div>
+            </div>
+            <hr>
+            <table class="table table-borderless">
+                <tr>
+                    <th>รายการทัวร์:</th>
+                    <td>{{ ticket.package }}</td>
+                </tr>
+                <tr>
+                    <th>วันเดินทาง:</th>
+                    <td>{{ ticket.date }}</td>
+                </tr>
+                <tr>
+                    <th>ยอดชำระทั้งสิ้น:</th>
+                    <td><strong>{{ ticket.amount }} บาท</strong></td>
+                </tr>
+            </table>
+            <div class="mt-4 text-center text-muted">
+                <p>*** กรุณาแสดงหน้านี้หรือใบเสร็จต่อเจ้าหน้าที่ในวันเดินทาง ***</p>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <button onclick="window.print();" class="btn btn-primary">พิมพ์ตั๋ว / Save เป็น PDF</button>
+        <a href="{% url 'index' %}" class="btn btn-secondary">กลับหน้าหลัก</a>
+    </div>
+</div>
+{% endblock %}

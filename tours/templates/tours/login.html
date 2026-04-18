@@ -1,0 +1,43 @@
+{% extends 'tours/base.html' %}
+
+{% block title %}เข้าสู่ระบบ - SouthernTour{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4 class="mb-0 fw-bold">เข้าสู่ระบบ</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        
+                        {% if form.errors %}
+                            <div class="alert alert-danger p-2 text-center" role="alert">
+                                เบอร์โทรศัพท์หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง
+                            </div>
+                        {% endif %}
+                        
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label fw-bold">เบอร์โทรศัพท์</label>
+                            <input type="text" name="username" id="id_username" class="form-control" required placeholder="กรอกเบอร์โทรศัพท์ 10 หลัก">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="id_password" class="form-label fw-bold">รหัสผ่าน</label>
+                            <input type="password" name="password" id="id_password" class="form-control" required placeholder="กรอกรหัสผ่าน">
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary fw-bold py-2">เข้าสู่ระบบ</button>
+                            <a href="{% url 'register' %}" class="btn btn-outline-secondary mt-2">ยังไม่มีบัญชี? สมัครสมาชิก</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

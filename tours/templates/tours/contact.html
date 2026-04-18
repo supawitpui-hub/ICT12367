@@ -1,0 +1,69 @@
+{% extends 'tours/base.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+                <div class="row g-0">
+                    <div class="col-md-5 bg-primary d-flex flex-column justify-content-center align-items-center text-white p-5">
+                        <i class="fas fa-headset fa-5x mb-4"></i>
+                        <h2 class="fw-bold">Contact Us</h2>
+                        <p class="text-center">พวกเรา SouthernTour ยินดีให้บริการและช่วยเหลือคุณในทุกการเดินทาง</p>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body p-5">
+                            <h3 class="mb-4 text-primary fw-bold">ข้อมูลการติดต่อ</h3>
+                            
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="icon-box bg-light p-3 rounded-circle me-3">
+                                    <i class="fas fa-phone-alt text-primary fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 text-muted">เบอร์โทรศัพท์</h6>
+                                    <p class="h5 mb-0 fw-bold">065-423-0090</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="icon-box bg-light p-3 rounded-circle me-3">
+                                    <i class="fab fa-line text-success fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 text-muted">Line ID</h6>
+                                    <p class="h5 mb-0 fw-bold">@SouthernTour</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="icon-box bg-light p-3 rounded-circle me-3">
+                                    <i class="fas fa-envelope text-danger fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 text-muted">อีเมล</h6>
+                                    <p class="h5 mb-0 fw-bold">support@southerntour.com</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div class="icon-box bg-light p-3 rounded-circle me-3">
+                                    <i class="fas fa-map-marker-alt text-warning fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 text-muted">สำนักงาน</h6>
+                                    <p class="mb-0">สถานีขนส่งผู้โดยสาร (บขส.) จ.นครศรีธรรมราช</p>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+                            <div class="text-center">
+                                <a href="{% url 'index' %}" class="btn btn-outline-primary px-4 rounded-pill">กลับหน้าหลัก</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

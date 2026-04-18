@@ -1,0 +1,68 @@
+{% extends 'tours/base.html' %}
+
+{% block title %}สมัครสมาชิก{% endblock %}
+
+{% block content %}
+<style>
+    /* แต่งช่องกรอกข้อมูลให้ดูสวยและทันสมัยขึ้น */
+    .custom-register-form input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        margin-top: 5px;
+    }
+    .custom-register-form input:focus {
+        border-color: #0d6efd;
+        outline: none;
+        box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow p-4">
+                <h3 class="text-center text-primary mb-4">📝 สมัครสมาชิกใหม่</h3>
+                
+                <form method="POST" class="custom-register-form">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="fw-bold text-dark">{{ field.label }}</label>
+                            
+                            {{ field }} 
+                            
+                            {% if forloop.counter == 1 %}
+                                <small class="text-muted d-block mt-1">
+                                    👉 ความยาวไม่เกิน 150 ตัวอักษร (อนุญาตเฉพาะตัวอักษร ตัวเลข และ @/./+/-/_ เท่านั้น)
+                                </small>
+                            {% elif forloop.counter == 2 %}
+                                <div class="text-muted mt-2 p-2 bg-light rounded border" style="font-size: 0.85rem;">
+                                    <strong>📌 คำแนะนำการตั้งรหัสผ่าน:</strong>
+                                    <ul class="mb-0 ps-3 mt-1">
+                                        <li>ต้องมีความยาวอย่างน้อย 8 ตัวอักษร</li>
+                                        <li>ต้องไม่คล้ายกับชื่อผู้ใช้ หรือข้อมูลส่วนตัวมากเกินไป</li>
+                                        <li>ต้องไม่เป็นรหัสผ่านที่เดาง่าย หรือเป็นตัวเลขล้วน (เช่น 12345678)</li>
+                                    </ul>
+                                </div>
+                            {% elif forloop.counter == 3 %}
+                                <small class="text-muted d-block mt-1">
+                                    👉 กรุณากรอกรหัสผ่านให้ตรงกับด้านบนอีกครั้งเพื่อยืนยัน
+                                </small>
+                            {% endif %}
+
+                            {% for error in field.errors %}
+                                <div class="text-danger mt-1" style="font-size: 0.9rem;">❌ {{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-success w-100 fw-bold mt-4 py-2">ยืนยันการสมัครสมาชิก</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'tours/base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <div class="card shadow p-5 border-0">
+        <h1 class="text-success mb-3">✅ จองสำเร็จแล้ว!</h1>
+        <p class="fs-5">คุณจองที่นั่งหมายเลข <strong>{{ seat }}</strong></p>
+        <p class="text-muted">สำหรับทริป: {{ package.package_name }}</p>
+        <hr>
+        <p>กรุณาดำเนินการชำระเงินในขั้นตอนถัดไป</p>
+        <div class="mt-4">
+            <a href="{% url 'index' %}" class="btn btn-outline-primary">กลับหน้าแรก</a>
+            <button class="btn btn-success px-4">ชำระเงินเลย ➔</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
